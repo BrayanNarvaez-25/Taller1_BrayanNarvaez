@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
     public float speed = 5f;
     public float jumpForce = 7f;
     private Animator animator;
+    private PlayerHealth playerHealth;
     private bool isGrounded;
     private bool facingRight = true;
 
@@ -13,16 +14,20 @@ public class PlayerController : MonoBehaviour
     {
         rd = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     void Update()
     {
+        // Durante el empujón no se procesa el movimiento ni el salto
+        if (playerHealth.IsKnockedBack) return;
+
         float move = Input.GetAxis("Horizontal");
         float speedAnimation = Mathf.Abs(move);
         animator.SetFloat("Speed", speedAnimation);
-        rd.velocity = new Vector2(move * speed, rd.velocity.y);
+        rd.linearVelocity = new Vector2(move * speed, rd.linearVelocity.y);
 
-        if(move > 0 && !facingRight)
+        if (move > 0 && !facingRight)
         {
             Flip();
         }
