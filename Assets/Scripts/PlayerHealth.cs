@@ -31,7 +31,6 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
-        // En Awake para que la vida ya esté lista cuando HealtUI lea el valor en su Start
         currentLives = maxLives;
     }
 
@@ -44,20 +43,28 @@ public class PlayerHealth : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        TryTakeDamage(collision);
+        CheckEnemy(collision);
     }
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        TryTakeDamage(collision);
+        CheckEnemy(collision);
     }
 
-    void TryTakeDamage(Collision2D collision)
+    void CheckEnemy(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            RecibirDanio(collision.transform);
+        }
+    }
+
+    // Método público: lo usan enemigos, trampas, proyectiles, etc.
+    public void RecibirDanio(Transform fuente, int cantidad = 1)
     {
         if (isDead || isInvulnerable) return;
-        if (!collision.gameObject.CompareTag("Enemy")) return;
 
-        currentLives--;
+        currentLives = Mathf.Max(0, currentLives - cantidad);
         OnLivesChanged?.Invoke(currentLives);
         animator.SetTrigger("Hurt");
 
@@ -67,8 +74,7 @@ public class PlayerHealth : MonoBehaviour
             return;
         }
 
-        float direction = Mathf.Sign(transform.position.x - collision.transform.position.x);
-        if (direction == 0) direction = 1;
+        float direction = Mathf.Sign(transform.position.x - fuente.position.x);
 
         StartCoroutine(KnockbackRoutine(direction));
         StartCoroutine(InvulnerabilityRoutine());
