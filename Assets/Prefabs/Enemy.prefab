@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2854966187624407406}
   - component: {fileID: 5446650167463023710}
   - component: {fileID: 8051892114548186239}
+  - component: {fileID: -1222005995766716648}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -241,3 +242,17 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-1222005995766716648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6256486271328916526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0215babf080510a448a189979ad00047, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
+  MaxHealth: 3
+  currentHealth: 0
