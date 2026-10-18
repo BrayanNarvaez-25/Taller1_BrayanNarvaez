@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     private bool isGrounded;
     private bool facingRight = true;
 
+    [Header("Efectos visuales")]
+    public GameObject polvoSaltoPrefabs;
+
     void Start()
     {
         rd = GetComponent<Rigidbody2D>();
@@ -41,6 +44,14 @@ public class PlayerController : MonoBehaviour
             rd.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
             isGrounded = false;
             animator.SetBool("isJumping", true);
+
+            if (AudioManager.Instance != null)
+                AudioManager.Instance.ReproducirSfx(AudioManager.Instance.sonidoSalto);
+
+            if (polvoSaltoPrefabs != null)
+            {
+                Instantiate(polvoSaltoPrefabs, transform.position, Quaternion.identity);
+            }
         }
     }
 

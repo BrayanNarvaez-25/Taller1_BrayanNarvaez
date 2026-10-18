@@ -10,16 +10,18 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator animator;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0)) {
+        // No atacar mientras el juego está en pausa
+        if (Time.timeScale == 0f) return;
+
+        if (Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(0))
+        {
             Attack();
         }
     }
@@ -31,10 +33,19 @@ public class PlayerAttack : MonoBehaviour
             animator.SetTrigger("Attack");
         }
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ReproducirSfx(AudioManager.Instance.sonidoGolpe);
+
+        if (attackPoint == null)
+        {
+            Debug.LogError("Falta asignar Attack Point en PlayerAttack");
+            return;
+        }
+
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayer);
         foreach (Collider2D enemy in hitEnemies)
         {
-            EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
+            EnemyHealth enemyHealth = enemy.GetComponentInParent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(attackDamage);
@@ -49,6 +60,5 @@ public class PlayerAttack : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackPoint.position, attackRange);
-        
     }
 }

@@ -9,6 +9,9 @@ public class Coin : MonoBehaviour
         if (CoinUI.Instance != null)
             CoinUI.Instance.AddCoin();
 
+        if (AudioManager.Instance != null)
+            AudioManager.Instance.ReproducirSfx(AudioManager.Instance.sonidoMoneda);
+
         Destroy(gameObject);
     }
 }

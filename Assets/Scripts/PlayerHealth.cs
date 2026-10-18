@@ -21,6 +21,10 @@ public class PlayerHealth : MonoBehaviour
     public float knockbackForceY = 4f;
     public float knockbackDuration = 0.25f;
 
+    [Header("Sacudida de cámara")]
+    public float shakeDuration = 0.2f;
+    public float shakeStrength = 0.15f;
+
     public bool IsKnockedBack { get; private set; }
 
     private bool isInvulnerable;
@@ -67,6 +71,10 @@ public class PlayerHealth : MonoBehaviour
         currentLives = Mathf.Max(0, currentLives - cantidad);
         OnLivesChanged?.Invoke(currentLives);
         animator.SetTrigger("Hurt");
+
+        // Sacudida de cámara (se ignora si no hay CameraShake en la escena)
+        if (CameraShake.Instance != null)
+            CameraShake.Instance.Sacudir(shakeDuration, shakeStrength);
 
         if (currentLives <= 0)
         {
