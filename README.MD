@@ -13,3 +13,5 @@ VIDEO TALLER 7: https://drive.google.com/file/d/1DIWT1sJvIGciG_eT9JXkwLwk9xA6nij
 VIDEO TALLER 8: https://drive.google.com/file/d/1tevp3kCFjPr_Tyz34UVDI6n1vbRhM0if/view?usp=sharing
 
 VIDEO TALLER 9: https://drive.google.com/file/d/1qk4xG5bvHb5TIVIb1Ov8bZ5zGi0nyE1w/view?usp=sharing
+
+VIDEO TALLER 10: https://drive.google.com/file/d/1vmRWLDdh_omul5hN9AgB4eCCz-P0Ispt/view?usp=sharing
